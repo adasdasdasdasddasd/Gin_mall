@@ -2,27 +2,7 @@
 
 **基于 gin+gorm+mysql读写分离 的一个电子商场**
 
-本项目改自于作者[Congz](https://github.com/congz666)的[电子商城](https://github.com/congz666/cmall-go)
-去除了一些如第三方登录，极验，第三方支付等功能，新增了MySQL读写分离、ELK日志体系、AES对称加密进行数据脱敏等。
-在此也非常感谢作者开源！🫡
-
-此项目比较全面，比较适合小白入门`web开发`
-
-# 更新说明
-**V2版本，结构较比V1版本有很大的改动**
-**全部转化成 controller、dao、service 模式，更加符合企业开发**
-
-由于整合上传oss和上传到本地，需要在 conf 中进行配置 `UploadModel` 字段，上传到 oss 则配置 oss，上传本地则配置 local
-
-# 开源合作
-欢迎大家把自己的想法 pr 到这个项目中。
-
-**说明：**
-1. 大家可以根据自己的需要进行分支的合并，记得合并的时候，看好是合并到 v2 还是 v1
-2. CR 通过之后，就会到合并到 v2 分支，合并到 v2 分支之后会自动合到 main 分支
-
-⚠️ 注意一定要自己测试好，才能提 pr
-
+原项目地址：https://github.com/CocaineCong/gin-mall，本人抱着学习的目的对项目进行的改编及完善，感谢原作者的开源！！
 # 项目的主要功能介绍
 
 - 用户注册登录(JWT-Go鉴权)
@@ -36,16 +16,6 @@
 - 支持事务，支付过程发送错误进行回退处理
 - 可以将图片上传到对象存储，也可以切换分支上传到本地static目录下
 - 添加ELK体系，方便日志查看和管理
-
-# 项目需要完善的地方
-
-- 考虑加入kafka或是rabbitmq，新增一个秒杀专场
-- 优化 service 返回的参数，加上返回值 error，因为go的函数返回都是要有error的，这才是go的代码风格（我也不懂go为啥要这样设置，很多优秀的开源项目都是这样写函数的返回值）
-- 抽离 service 的结构体到 types，引入 sync.Once 模块，重构 service 层
-- 优化鉴权模块，加上 refreshToken，将 token 改成 accessToken
-- 优化日志输出，统一用日志对象
-- 考虑 cmd 和 loading 这两个文件夹是否合并
-
 # 项目的主要依赖：
 Golang V1.16
 - gin
@@ -102,49 +72,6 @@ gin-mall/
 - serializer : 将数据序列化为 json 的函数，便于返回给前端
 - service : 接口函数的实现
 - static : 存放静态文件
-
-# 配置文件
-`conf/config.ini` 文件配置
-
-```ini
-#debug开发模式,release生产模式
-[service]
-AppMode = debug
-HttpPort = :3000
-
-[mysql]
-Db = mysql
-DbHost = 127.0.0.1
-DbPort = 3306
-DbUser = root
-DbPassWord = root
-DbName =
-
-[redis]
-RedisDb = redis
-RedisAddr = 127.0.0.1:6379
-RedisPw =
-RedisDbName =
-
-[qiniu]
-AccessKey =
-SerectKey =
-Bucket =
-QiniuServer =
-
-[email]
-ValidEmail=http://localhost:8080/#/vaild/email/
-SmtpHost=smtp.qq.com
-SmtpEmail=
-SmtpPass=
-#SMTP服务的通行证
-
-[es]
-EsHost = 127.0.0.1
-EsPort = 9200
-EsIndex = mylog
-```
-
 ## 简要说明
 1. `mysql` 是存储主要数据。
 2. `redis` 用来存储商品的浏览次数。
